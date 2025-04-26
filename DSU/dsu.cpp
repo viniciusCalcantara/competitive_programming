@@ -2,47 +2,35 @@
 #define MAXN 200'020
 using namespace std;
 
-vector<int> parent(MAXN);
-vector<int> depth(MAXN);
+struct DSU {
+    vector<int> parent, rank;
 
-void dsu_setup(int n)
-{
-    for (int v = 0; v < n; v++)
-    {
-        parent[v] = v;
-        depth[v] = 0;
+    DSU(int n) : parent(n), rank(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
     }
-}
 
-int dsu_find(int v)
-{
-    if (v == parent[v])
-    {
-        return v;
+    int find(int x) {
+        if (parent[x] == x)
+            return x;
+        return parent[x] = find(parent[x]);
     }
-    return parent[v] = dsu_find(parent[v]);
-}
 
-void dsu_union(int a, int b)
-{
-    a = dsu_find(a);
-    b = dsu_find(b);
-    if (a != b)
-    {
-        if (depth[a] < depth[b])
+    void join(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a == b) return;
+        if (rank[a] < rank[b])
             swap(a, b);
-
         parent[b] = a;
-        if (depth[a] == depth[b])
-            depth[a]++;
+        if (rank[a] == rank[b])
+            rank[a]++;
     }
-}
+};
 
 int main() 
 {
-    // setup do DSU
     int n, m; cin >> n >> m;
-    dsu_setup(n);
+    DSU dsu(n);
 
     while (m--)
     {
@@ -51,12 +39,12 @@ int main()
         if (op == 1)
         {
             int u, v; cin >> u >> v;
-            dsu_union(u, v);
+            dsu.join(u, v);
         }
         else
         {
             int u; cin >> u;
-            dsu_find(u);
+            dsu.find(u);
         }
     }
     return 0;
