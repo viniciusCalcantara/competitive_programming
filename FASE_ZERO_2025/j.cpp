@@ -28,7 +28,7 @@ int main()
         while (!s.empty() && v[s.top()] >= v[i])
             s.pop();
 
-        if (!s.empty() && i < n)
+        if (i < n)
             ans[i] = s.top();
             
         s.push(i);
