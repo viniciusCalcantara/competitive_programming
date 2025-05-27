@@ -21,21 +21,21 @@ int main()
         v[i + n] = ai - 1LL * k * (i + n);
     }
 
-    vector<int> ans(2 * n);
+    vector<int> ans(n);
     stack<int> s;
     for (int i = 2 * n - 1; i >= 0; i--)
     {
         while (!s.empty() && v[s.top()] >= v[i])
             s.pop();
 
-        if (!s.empty())
-            s.top() >= n ? ans[i] = s.top() - n : ans[i] = s.top();
+        if (!s.empty() && i < n)
+            ans[i] = s.top();
             
         s.push(i);
     }
 
     for (int i = 0; i < n; i++)
-        cout << ans[i] + 1 << " ";
+        cout << ans[i] % n + 1 << " ";
     cout << "\n";
     return 0;
 }
