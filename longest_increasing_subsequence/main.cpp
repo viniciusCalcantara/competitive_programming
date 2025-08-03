@@ -9,6 +9,12 @@ Output:
 
 Concepts:
     subsequencia -> subconjunto ordenado de elementos da entrada
+
+    d[l] -> d[l] é o menor elemento que que termina a subsequência de tamanho l.
+
+    pos[l] -> índice do menor elemento que termina a sequência de tamanho l
+
+    p[i] -> predecessor de do elemento de índice i que termina a subsequência de tamanho l.
 */
 
 #include <bits/stdc++.h>
