@@ -18,7 +18,7 @@ vector<int> rabin_karp(string const& s, string const& t) {
 
   long long h_s = 0;
   for (int i = 0; i < S; i++)
-    h_s += ((s[i] - 'a' + 1) * p_pow[i]) % m;
+    h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m;
 
   vector<int> ocurrences;
   for (int i = 0; i + S - 1 < T; i++) {
